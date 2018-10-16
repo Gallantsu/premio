@@ -3,7 +3,7 @@
 		<ul class="top-bg">
 			<li v-for="imgsrc in bgImgs"><img :src="require('../../assets/images/'+imgsrc+'.jpg')"></li>
 		</ul>
-		<component @hide-animate="hideAnimateDiv" :nextSrc="targetSrc"  v-bind:animateShow="animateShow"  v-bind:is="animateComponet"></component>
+		<!-- <component @hide-animate="hideAnimateDiv" :nextSrc="targetSrc"  v-bind:animateShow="animateShow"  v-bind:is="animateComponet"></component> -->
 	</div>
 </template>
 
@@ -12,6 +12,7 @@
 
 import slideTransition from './SlideTransition.vue'
 import gridTransition from './GridTransition.vue'
+import {Cartoon}  from './Cartoon.js'
 
 export default {
 	data(){
@@ -39,18 +40,15 @@ export default {
 		}
 	},
 	mounted(){
-		/*let that = this;
-		setInterval(()=>{
-			//that.animateComponet = that.dynamicComponets[Math.floor(Math.random()*that.dynamicComponets.length)];
-			//that.animateComponet = "gridTransition";
-			that.targetSrc = that.currentSrc;
-			that.animateShow = true;
-			that.animateIndex++;
-			if(that.animateIndex>=3){
-				that.animateIndex = 0;
-			}
-
-		},5000)*/
+		$.fn.cartoon = function(opt){
+			return new Cartoon($(this),opt);
+		}
+		$(".top-bg").cartoon({
+			cartoonWidth:document.body.offsetWidth,
+			cartoonHeight:800,
+			playInterval:5000,
+			playType:''
+		})
 	}
 
 }
@@ -68,14 +66,18 @@ export default {
 			width:100%;
 			height:100%;
 			overflow:hidden;
+			li{
+				width:100%;
+				height:100%;
+			}
 		}
-		.top-bg img{
+		.top-bg li img{
 			position:absolute;
 			top:0px;
 			left:0px;
 			width:100%;
 			height:100%;
-			z-index:19
+			z-index:1
 		}
 	}
 </style>
