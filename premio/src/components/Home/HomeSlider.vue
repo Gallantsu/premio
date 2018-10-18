@@ -1,7 +1,7 @@
 <template>
 	<div class="top-banner">
 		<ul class="top-bg">
-			<li v-for="imgsrc in bgImgs"><img :src="require('../../assets/images/'+imgsrc+'.jpg')"></li>
+			<li v-for="imgsrc in bgImgs" ><img :src="require('../../assets/images/'+imgsrc+'.jpg')"></li>
 		</ul>
 		<!-- <component @hide-animate="hideAnimateDiv" :nextSrc="targetSrc"  v-bind:animateShow="animateShow"  v-bind:is="animateComponet"></component> -->
 	</div>
@@ -47,7 +47,7 @@ export default {
 			cartoonWidth:document.body.offsetWidth,
 			cartoonHeight:800,
 			playInterval:5000,
-			playType:''
+			playType:'random'
 		})
 	}
 
@@ -67,17 +67,18 @@ export default {
 			height:100%;
 			overflow:hidden;
 			li{
+				position:absolute;
+				top:0px;
+				left:0px;
+				margin:0px;
+				padding:0px;
 				width:100%;
 				height:100%;
 			}
 		}
 		.top-bg li img{
-			position:absolute;
-			top:0px;
-			left:0px;
 			width:100%;
 			height:100%;
-			z-index:1
 		}
 	}
 </style>
