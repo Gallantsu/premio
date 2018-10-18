@@ -77,7 +77,7 @@ class Cartoon {
 		}else{
 			return this.animation = setInterval(()=>{
 				this.play("next");
-			},5000);
+			},this.opts.playInterval);
 		}
 		this.switchBg();
 	}

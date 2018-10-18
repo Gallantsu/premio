@@ -46,7 +46,7 @@ export default {
 		$(".top-bg").cartoon({
 			cartoonWidth:document.body.offsetWidth,
 			cartoonHeight:800,
-			playInterval:5000,
+			playInterval:10000,
 			playType:'random'
 		})
 	}
