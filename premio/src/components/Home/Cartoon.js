@@ -25,7 +25,9 @@ class Cartoon {
 				"shutterVerticalDown",
 				"shutterHorizontalSeparate",
 				"shutterHorizontalLeft",
-				"shutterHorizontalRight"
+				"shutterHorizontalRight",
+				"gridSwitch",
+				"gridLittle"
 			] //可以自定义动画类型
 		}
 		this.opts = Object.assign(this.defaults,options);
@@ -171,7 +173,7 @@ class Cartoon {
 		//建立区块
 		const devideNum = 18;
 		for(let i = 0; i < devideNum; i++){
-			let $createdEle = $("<div class='grid-container'></div>")
+			let $createdEle = $("<div class='shutter-container'></div>")
 			$createdEle.html(this.backbg).css({
 		        position: 'absolute',
 		        zIndex: 20,
@@ -194,7 +196,7 @@ class Cartoon {
 
 		switch(num){
     		case 0:
-    			this.currentItem.find(".grid-container").each(function(index){
+    			this.currentItem.find(".shutter-container").each(function(index){
     				if(index%2){
     					moveVal = -cartoonHeight;
     				}else{
@@ -209,7 +211,7 @@ class Cartoon {
     			this.recovery(1000);
     			break;
 			case 1:
-				this.currentItem.find(".grid-container").each(function(index){
+				this.currentItem.find(".shutter-container").each(function(index){
     				$(this).velocity({
     					top:moveVal
     				},{
@@ -219,7 +221,7 @@ class Cartoon {
     			this.recovery(1110);
         		break;
 			case 2:
-				this.currentItem.find(".grid-container").each(function(index){
+				this.currentItem.find(".shutter-container").each(function(index){
     				$(this).velocity({
     					top:-moveVal
     				},{
@@ -252,7 +254,7 @@ class Cartoon {
 		//建立区块
 		const devideNum = 12;
 		for(let i = 0; i < devideNum; i++){
-			let $createdEle = $("<div class='grid-container'></div>")
+			let $createdEle = $("<div class='shutter-container'></div>")
 			$createdEle.html(this.backbg).css({
 		        position: 'absolute',
 		        zIndex: 20,
@@ -275,7 +277,7 @@ class Cartoon {
 
 		switch(num){
     		case 0:
-    			this.currentItem.find(".grid-container").each(function(index){
+    			this.currentItem.find(".shutter-container").each(function(index){
     				if(index%2){
     					moveVal = -cartoonWidth;
     				}else{
@@ -290,7 +292,7 @@ class Cartoon {
     			this.recovery(1000);
     			break;
 			case 1:
-				this.currentItem.find(".grid-container").each(function(index){
+				this.currentItem.find(".shutter-container").each(function(index){
     				$(this).velocity({
     					left:-moveVal
     				},{
@@ -300,7 +302,7 @@ class Cartoon {
     			this.recovery(1080);
         		break;
 			case 2:
-				this.currentItem.find(".grid-container").each(function(index){
+				this.currentItem.find(".shutter-container").each(function(index){
     				$(this).velocity({
     					left:moveVal
     				},{
@@ -325,8 +327,136 @@ class Cartoon {
 		this.shutterHorizontal(2);
 	}
 
-	
-}
+	gridSwitch(){
+		this.currentItem.empty();
+		let cartoonWidth = this.opts.cartoonWidth;
+		let cartoonHeight = this.opts.cartoonHeight;
+		const cols = 7; //必须为奇数
+		const rows = 6;
+		for(let i = 0,total = cols*rows; i < total; i++){
+			let $createdEle = $("<div class='grid-container'></div>");
+			$createdEle.html(this.backbg).css({
+		        position: 'absolute',
+		        zIndex: 20,
+		        left: parseInt(cartoonWidth/cols)*(i%cols),
+		        top: parseInt(cartoonHeight/rows)*Math.floor(i/cols),
+		        overflow: 'hidden',
+		        width: parseInt(cartoonWidth/cols),
+		        height: parseInt(cartoonHeight/rows)
+      		});
+      		$createdEle.find("img").css({
+      			marginTop:-(this.cartoonHeight / rows) * Math.floor(i / cols),
+      			marginLeft:-parseInt(cartoonWidth/cols)*(i%cols),
+      			width: cartoonWidth,
+	        	height:cartoonHeight,
+	        	display:"block"
+      		});
+      		this.currentItem.append($createdEle);
+		}
+		this.currentItem.find('.grid-container').each(function (i) {
+        	if (i % 2 === 0) {
+	          $(this).find("img").velocity({
+	            marginLeft: $(this).width()
+	          }, {duration: 500});
+        	}
+      	});
+		let that = this;
+      	setTimeout(function () {
+	        that.currentItem.find('.grid-container').each(function (i) {
+	          if (i % 1 === 0) {
+	            $(this).find("img").velocity({
+	              marginLeft: $(this).width()
+	            }, {duration: 500});
+	          }
+	        });
+      		}, 600);
+      	this.recovery(1200);
+	}
 
+	tab(arr, x, y, fn, delay, speedX, speedY) {
+		let self = this;
+	  	if (!arr[y] || !arr[y][x]) {
+	    	return;
+	  	}
+
+	  	if (fn) {
+	    	fn.call(arr[y][x]);
+
+	    	clearTimeout(arr[y][x].timer);
+	    	arr[y][x].timer = setTimeout(function () {
+	      		self.tab(arr, x, y + speedY, fn, delay, speedX, speedY);
+	      		self.tab(arr, x + speedX, y, fn, delay, speedX, speedY);
+	    }, delay);
+	  }
+	}
+
+	getXY(objs, rows, cols) {
+	  var arr1 = [];
+
+	  for (var i = 0; i < rows; i ++) {
+	    var arr2 = [];
+
+	    for (var j = 0; j < cols; j ++) {
+	      objs[i * cols + j].xIndex = j;
+	      objs[i * cols + j].yIndex = i;
+
+	      arr2.push(objs[i * cols + j]);
+	    }
+
+	    arr1.push(arr2);
+	  }
+
+	  return arr1;
+	}
+
+	gridLittle(){
+		this.currentItem.empty();
+		let self = this;
+      	let coordinate = null;
+      	let cartoonWidth = this.opts.cartoonWidth;
+		let cartoonHeight = this.opts.cartoonHeight;
+
+      	this.nextItem.css('zIndex', 19);
+
+      	for (let i = 0; i < 24; i ++) {
+        	let $createdElem = $('<div class="grid-container"></div>');
+
+	        $createdElem.html(this.backbg).css({
+	        	position:"absolute",
+          		width: parseInt(cartoonWidth / 6),
+	          	height: parseInt(cartoonHeight / 4),
+	          	left: parseInt(cartoonWidth / 6) * (i % 6),
+	          	top: parseInt(cartoonHeight / 4) * Math.floor(i / 6),
+	          	zIndex:20,
+	          	overflow:"hidden"
+	        });
+
+        	$createdElem.find('img').css({
+	          	display: 'block',
+	          	width: cartoonWidth,
+	          	height: cartoonHeight,
+	          	marginLeft: -parseInt(cartoonWidth / 6) * (i % 6),
+	          	marginTop: -parseInt(cartoonHeight / 4) * Math.floor(i / 6)
+       		});
+
+       		this.currentItem.append($createdElem);
+      	}
+
+      	coordinate = this.getXY(this.currentItem.find('.grid-container'), 4, 6);
+
+      	this.tab(coordinate, 0, 0, function () {
+	        var left = parseInt(this.style.left);
+	        var top = parseInt(this.style.top);
+
+	        $(this).velocity({
+	          	left: left + 200,
+	          	top: top + 200,
+	          	opacity: 0
+	        });
+      	}, 100, +1, +1);
+
+      	this.recovery(1200);
+	}
+}
 
 export {Cartoon}
