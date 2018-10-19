@@ -56,4 +56,16 @@ export default {
   ul{
     list-style: none;
   }
+  .font-35{
+    font-size: 35px;
+  }
+  .font-70{
+    font-size: 70px;
+  }
+  .cyan{
+    color:#1cd1aa !important;
+  }
+  .letter-space-4{
+    letter-spacing: 4px;
+  }
 </style>

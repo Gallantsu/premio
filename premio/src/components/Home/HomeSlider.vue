@@ -3,15 +3,16 @@
 		<ul class="top-bg">
 			<li v-for="imgsrc in bgImgs" ><img :src="require('../../assets/images/'+imgsrc+'.jpg')"></li>
 		</ul>
-		<!-- <component @hide-animate="hideAnimateDiv" :nextSrc="targetSrc"  v-bind:animateShow="animateShow"  v-bind:is="animateComponet"></component> -->
+		<component :textShow="animateShow" class="animation-container" :is="textComponet"></component>
 	</div>
 </template>
 
 
 <script>
 
-import slideTransition from './SlideTransition.vue'
-import gridTransition from './GridTransition.vue'
+/*import slideTransition from './SlideTransition.vue'
+import gridTransition from './GridTransition.vue'*/
+import TextAnimationOne from './TextAnimationOne.vue'
 import {Cartoon}  from './Cartoon.js'
 
 export default {
@@ -20,8 +21,8 @@ export default {
 			bgImgs:["slide-1","slide-2","slide-3"],
 			animateShow:false,
 			animateIndex:0,
-			animateComponet:"gridTransition",
-			dynamicComponets:["slideTransition","gridTransition"],
+			textComponet:"TextAnimationOne",
+			dynamicComponets:[],
 			targetSrc:""
 		}
 	},
@@ -31,8 +32,7 @@ export default {
 		}
 	},
 	components:{
-		slideTransition,
-		gridTransition
+		TextAnimationOne
 	},
 	methods:{
 		hideAnimateDiv(){
@@ -42,13 +42,14 @@ export default {
 	mounted(){
 		$.fn.cartoon = function(opt){
 			return new Cartoon($(this),opt);
-		}
+		};
 		$(".top-bg").cartoon({
 			cartoonWidth:document.body.offsetWidth,
 			cartoonHeight:800,
-			playInterval:10000,
+			playInterval:15000,
 			playType:'random'
-		})
+		});
+		this.animateShow = true;
 	}
 
 }
@@ -79,6 +80,20 @@ export default {
 		.top-bg li img{
 			width:100%;
 			height:100%;
+		}
+		.animation-container{
+			position:absolute;
+			top:0px;
+			left:0px;
+			width:100%;
+			height:100%;
+			z-index:100;
+			.animate-text{
+				position:absolute;
+				font-weight:bold;
+				color:#fff;
+				text-transform:uppercase;
+			}
 		}
 	}
 </style>
