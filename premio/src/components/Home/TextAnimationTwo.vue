@@ -1,18 +1,17 @@
 <template>
 	<div>
-		<transition name="slide-text1">
-			<TextFont35 :class="$style['text-top']" v-show="show" >Feel the magic of Creative Design</TextFont35>
+		<transition name="slide-text5">
+			<TextFont35 :class="$style['text-top']" v-show="show" >Our Premio will give you softer skin</TextFont35>
 		</transition>
-		<transition name="slide-text2">
-			<TextFont70 :class="$style['text-middle']" v-show="show" >Welcome To Premio</TextFont70>
+		<transition name="slide-text6">
+			<TextFont70 :class="$style['text-middle']" v-show="show" >We Deal With Creative Design</TextFont70>
 		</transition>
-		<transition name="slide-text3">
-			<TextItalic :class="$style['text-bottom']" v-show="show" >You'll Look a Little Lovelier Each Day with Fabulous Pink Creative design</TextItalic>
+		<transition name="slide-text7">
+			<TextItalic :class="$style['text-bottom']" v-show="show" >Premio Stays Sharp 'til The Bottom of the Glass, Nunc mattis vitae dui ut eleifend.</TextItalic>
 		</transition>
-		<transition name="slide-text4">
+		<transition name="slide-text8">
 			<p :class="$style['text-btn']" v-show="show">
-				<BaseButton btnStyle="blue">buy theme</BaseButton>
-				<BaseButton btnStyle="white">Get Started</BaseButton>
+				<BaseButton btnStyle="blue">Buy Theme</BaseButton>
 			</p>
 		</transition>
 	</div>
@@ -41,7 +40,7 @@
 		},
 		computed:{
 			show(){
-				return this.textShow == 1?true:false;
+				return this.textShow == 2?true:false;
 			}
 		},
 		components:{
@@ -50,6 +49,7 @@
 			TextFont70,
 			TextItalic
 		}
+
 	}
 </script>
 
@@ -69,12 +69,12 @@
 	.text-middle{
 		@include hidden-abs;
 		left:100px;
-		top:390px;
+		top:410px;
 	}
 	.text-bottom{
 		@include hidden-abs;
 		left:100px;
-		bottom:270px;
+		bottom:260px;
 	}
 	.text-btn{
 		@include hidden-abs;
@@ -84,32 +84,32 @@
 	}
 </style>
 <style scope >
-	.slide-text1-enter,
-	.slide-text2-enter{
+	.slide-text5-enter,
+	.slide-text6-enter{
 		display:block;
 		position:absolute;
 		left:120px;
 		top:0px;
 		opacity:0;
 	}
-	.slide-text3-enter,
-	.slide-text4-enter{
+	.slide-text7-enter,
+	.slide-text8-enter{
 		display:block;
 		position:absolute;
 		left:120px;
 		bottom:0px;
 		opacity:0;
 	}
-	.slide-text1-enter-active{
+	.slide-text5-enter-active{
 		transition:all 1s;
 	}
-	.slide-text2-enter-active{
+	.slide-text6-enter-active{
 		transition:all 1s ease 1s;
 	}
-	.slide-text3-enter-active{
+	.slide-text7-enter-active{
 		transition:all 1s ease 2s;
 	}
-	.slide-text4-enter-active{
+	.slide-text8-enter-active{
 		transition:all 1s ease 3s;
 	}
 </style>

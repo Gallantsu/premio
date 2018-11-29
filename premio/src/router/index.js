@@ -5,11 +5,17 @@ import 'jquery'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
+	mode: 'history',
+  	routes: [
     {
       	path: '/',
     	component: () => import('@/components/Home/HomePage'),
         name: 'home',
-    }
+    },
+    {
+      	path: '/about',
+    	component: () => import('@/components/Home/HomePage'),
+        name: 'about',
+    },
   ]
 })

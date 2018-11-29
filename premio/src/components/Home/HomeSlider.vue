@@ -3,7 +3,11 @@
 		<ul class="top-bg">
 			<li v-for="imgsrc in bgImgs" ><img :src="require('../../assets/images/'+imgsrc+'.jpg')"></li>
 		</ul>
-		<component :textShow="animateShow" class="animation-container" :is="textComponet"></component>
+		<TextAnimationOne :textShow="animateShow" ></TextAnimationOne>
+		<TextAnimationTwo  :textShow="animateShow"  ></TextAnimationTwo>
+		<TextAnimationThree  :textShow="animateShow"  ></TextAnimationThree>
+		<div class="banner-prev"></div>
+		<div class="banner-next"></div>
 	</div>
 </template>
 
@@ -13,43 +17,53 @@
 /*import slideTransition from './SlideTransition.vue'
 import gridTransition from './GridTransition.vue'*/
 import TextAnimationOne from './TextAnimationOne.vue'
+import TextAnimationTwo from './TextAnimationTwo.vue'
+import TextAnimationThree from './TextAnimationThree.vue'
 import {Cartoon}  from './Cartoon.js'
 
 export default {
 	data(){
 		return{
 			bgImgs:["slide-1","slide-2","slide-3"],
-			animateShow:false,
+			animateShow:0,
 			animateIndex:0,
-			textComponet:"TextAnimationOne",
-			dynamicComponets:[],
 			targetSrc:""
 		}
 	},
 	computed:{
-		currentSrc(){
-			return require("../../assets/images/"+this.imgAry[this.animateIndex]+".jpg");
-		}
+		
 	},
 	components:{
-		TextAnimationOne
+		TextAnimationOne,
+		TextAnimationTwo,
+		TextAnimationThree
 	},
 	methods:{
-		hideAnimateDiv(){
-			this.animateShow = false;
-		}
+		
 	},
 	mounted(){
 		$.fn.cartoon = function(opt){
 			return new Cartoon($(this),opt);
 		};
+		let animateNum = 1;
+		const that = this;
 		$(".top-bg").cartoon({
 			cartoonWidth:document.body.offsetWidth,
 			cartoonHeight:800,
 			playInterval:15000,
-			playType:'random'
+			playType:'random',
+			animationBeforeFun:function(){
+				that.animateShow = 0;
+			},
+			animationAfterFun:function(){
+				animateNum++;
+				if(animateNum>3){
+					animateNum = 1;
+				}
+				that.animateShow = animateNum;
+			}
 		});
-		this.animateShow = true;
+		this.animateShow = animateNum;
 	}
 
 }
@@ -58,6 +72,9 @@ export default {
 
 
 <style lang='scss'>
+	@mixin hidden-abs{
+		position:absolute;
+	}
 	.top-banner{
 		position: relative;
 		width: 100%;
@@ -88,12 +105,28 @@ export default {
 			width:100%;
 			height:100%;
 			z-index:100;
-			.animate-text{
-				position:absolute;
-				font-weight:bold;
-				color:#fff;
-				text-transform:uppercase;
-			}
 		}
+	}
+	.banner-prev{
+		position:absolute;
+		top:400px;
+		left:0px;
+		width:100px;
+		height:100px;
+		background-color:#000;
+		opacity:0.15;
+		z-index:101;
+		cursor: pointer;
+	}
+	.banner-next{
+		position:absolute;
+		top:400px;
+		right:0px;
+		width:100px;
+		height:100px;
+		background-color:#000;
+		opacity:0.15;
+		z-index:101;
+		cursor: pointer;
 	}
 </style>

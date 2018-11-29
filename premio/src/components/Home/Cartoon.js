@@ -15,6 +15,7 @@ class Cartoon {
 			isControlled:false, //是否有按钮控制页面动画切换
 			prevBtn:null,
 			nextBtn:null,
+			animationBeforeFun:function(){},
 			animationTypes:[
 				"slideLeft",
 				"slideRight",
@@ -35,6 +36,7 @@ class Cartoon {
 	}
 
 	init(ele){
+
 		this.cartoonItems = $(ele).find("li");
 		this.cartoonLen = this.cartoonItems.length;
 		this.currentIndex = 0;
@@ -76,6 +78,7 @@ class Cartoon {
 			this.nextIndex = this.currentIndex - 1 < 0?(this.cartoonLen-1):this.currentIndex - 1;
 		}else{
 			return this.animation = setInterval(()=>{
+				this.opts.animationBeforeFun();
 				this.play("next");
 			},this.opts.playInterval);
 		}
@@ -107,6 +110,7 @@ class Cartoon {
 			this.currentItem.html(this.backbg).css("zIndex",this.currentIndex);
 			this.nextItem.css("zIndex",20);
 			this.currentIndex = this.nextIndex;
+			this.opts.animationAfterFun();
 		},interval);
 	}
 

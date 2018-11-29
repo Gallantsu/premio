@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- header -->
-    <header-section></header-section>
+    <header-section :isFixed="isFixed" ref="header"></header-section>
     <router-view/>
   </div>
 </template>
@@ -11,8 +11,26 @@ import HeaderSection from './components/Header/HeaderSection.vue'
 
 export default {
   name: 'App',
+  methods:{
+    sticky(){
+      let scrollTop = document.documentElement.scrollTop;
+      if(scrollTop){
+        this.isFixed = true;
+      }else{
+          this.isFixed = false;
+      }
+    }
+  },
+  data(){
+    return{
+      isFixed:false
+    }; 
+  },
   components:{
     HeaderSection
+  },
+  mounted(){
+    window.addEventListener('scroll', this.sticky, true);
   }
 }
 </script>
@@ -55,6 +73,9 @@ export default {
   }
   ul{
     list-style: none;
+  }
+  .font-18{
+    font-size: 18px;
   }
   .font-35{
     font-size: 35px;
