@@ -1,14 +1,12 @@
 <template>
   <header :class="{'fix-menu':isFixed}">
-  	<div id="nav_sticky_wrapper" class="sticky-wrapper">
-  		<div class="container">
+  	<div class="container">
   			<div class="logo">
   				<img src="../../assets/images/logo.png" alt="logo">
   			</div>
   			<!-- navigation -->
 			<nav-section class="right"></nav-section>
   		</div>
-  	</div>  
   </header>
 </template>
 
@@ -35,15 +33,9 @@ export default {
 	    top:0px;
 	    width:100%;
 	    height:72px;
-	    overflow:hidden;
 	    background:none;
 	   	transition:all ease 0.8s;
 	    z-index: 999;
-	    .container{
-	    	position:relative;
-	    	width: 1170px;
-	    	margin: 0 auto;
-	    }
 	    .logo{
 	    	position:absolute;
 	    	left:15px;

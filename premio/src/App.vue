@@ -39,9 +39,14 @@ export default {
   *{
     margin: 0px;
     padding: 0px;
+    box-sizing: border-box;
   }
   body{
-    background-color: rgba(128,103,103,0.7);
+    min-width: 1170px;
+    background-color: #fff;
+    line-height: 1.5;
+    position:relative;
+    font-family: 'Lato', sans-serif;
   }
   h1,h2,h3,h4,h5{
     font-family: 'Montserrat', sans-serif;
@@ -89,4 +94,39 @@ export default {
   .letter-space-4{
     letter-spacing: 4px;
   }
+  .padding-bottom-150 {
+    padding-bottom: 150px !important;
+  }
+  .padding-bottom-80 {
+    padding-bottom: 80px !important;
+  }
+  .padding-top-150 {
+      padding-top: 150px !important;
+  }
+  .container:after{
+      content:"";
+      display: block;
+      clear: both;
+  }
+  .clear-float:after{
+      content:"";
+      display: block;
+      clear: both;
+  }
+  @media (min-width: 992px) {
+       .container{
+        position:relative;
+        width:970px;
+        margin:0 auto;
+      }
+  }
+  @media (min-width: 1200px) {
+      .container{
+        position:relative;
+        width:1170px;
+        margin:0 auto;
+      }
+      
+  }
+  
 </style>

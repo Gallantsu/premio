@@ -3,13 +3,18 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import 'vue-awesome/icons'
+import '../static/font-awesome-4.7.0/css/font-awesome.min.css'
 
 Vue.config.productionTip = false
+
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: { 
+  	App
+   },
   template: '<App/>'
 })

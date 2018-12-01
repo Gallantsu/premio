@@ -50,13 +50,14 @@ const navList = [
 			font-size:12px;
 			text-decoration:none;
 			&:after{
-			content:"";
+				content:"";
 				position:absolute;
-				bottom:-1px;
+				bottom:0px;
 				left:0px;
 				width:0px;
 				height:2px;
 				background-color:#fff;
+				transition: 0.2s ease-in-out;
 			
 			}
 			&:hover:after{

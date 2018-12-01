@@ -73,15 +73,22 @@ class Cartoon {
 
 	play(step){
 		if(step === "next"){
+			this.action = "next";
+			clearTimeout(this.animation);
 			this.nextIndex = this.currentIndex + 1 > (this.cartoonLen-1)?0:this.currentIndex + 1;
 		}else if(step === "prev"){
+			this.action = "prev";
+			clearTimeout(this.animation);
 			this.nextIndex = this.currentIndex - 1 < 0?(this.cartoonLen-1):this.currentIndex - 1;
 		}else{
-			return this.animation = setInterval(()=>{
-				this.opts.animationBeforeFun();
+			return this.animation = setTimeout(()=>{
 				this.play("next");
 			},this.opts.playInterval);
 		}
+		this.animation = setTimeout(()=>{
+			this.play("next");
+		},this.opts.playInterval);
+		this.opts.animationBeforeFun(step);
 		this.switchBg();
 	}
 
@@ -110,7 +117,7 @@ class Cartoon {
 			this.currentItem.html(this.backbg).css("zIndex",this.currentIndex);
 			this.nextItem.css("zIndex",20);
 			this.currentIndex = this.nextIndex;
-			this.opts.animationAfterFun();
+			this.opts.animationAfterFun(this.action);
 		},interval);
 	}
 

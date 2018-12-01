@@ -6,8 +6,12 @@
 		<TextAnimationOne :textShow="animateShow" ></TextAnimationOne>
 		<TextAnimationTwo  :textShow="animateShow"  ></TextAnimationTwo>
 		<TextAnimationThree  :textShow="animateShow"  ></TextAnimationThree>
-		<div class="banner-prev"></div>
-		<div class="banner-next"></div>
+		<div class="banner-prev" @click="carousel('prev')" >
+			<span class="carousel-control carousel-prev" ></span>
+		</div>
+		<div class="banner-next" @click="carousel('next')" >
+			<span class="carousel-control carousel-next"  ></span>
+		</div>
 	</div>
 </template>
 
@@ -39,7 +43,9 @@ export default {
 		TextAnimationThree
 	},
 	methods:{
-		
+		carousel(action){
+			this.cartoon.play(action);
+		}
 	},
 	mounted(){
 		$.fn.cartoon = function(opt){
@@ -47,19 +53,28 @@ export default {
 		};
 		let animateNum = 1;
 		const that = this;
-		$(".top-bg").cartoon({
+		//动画开始
+		this.cartoon = $(".top-bg").cartoon({
 			cartoonWidth:document.body.offsetWidth,
 			cartoonHeight:800,
 			playInterval:15000,
 			playType:'random',
-			animationBeforeFun:function(){
+			animationBeforeFun:function(step){
 				that.animateShow = 0;
 			},
-			animationAfterFun:function(){
-				animateNum++;
-				if(animateNum>3){
-					animateNum = 1;
+			animationAfterFun:function(step){
+				if(step == "next"){
+					animateNum++;
+					if(animateNum>3){
+						animateNum = 1;
+					}
+				}else{
+					animateNum--;
+					if(animateNum<1){
+						animateNum = 3;
+					}
 				}
+			
 				that.animateShow = animateNum;
 			}
 		});
@@ -117,6 +132,11 @@ export default {
 		opacity:0.15;
 		z-index:101;
 		cursor: pointer;
+		transition: all 0.5s ease;
+		&:hover{
+			transition: all 0.5s ease;
+			opacity:0.5;
+		}
 	}
 	.banner-next{
 		position:absolute;
@@ -128,5 +148,27 @@ export default {
 		opacity:0.15;
 		z-index:101;
 		cursor: pointer;
+		transition: all 0.5s ease;
+		&:hover{
+			transition: all 0.5s ease;
+			opacity:0.3;
+		}
+	}
+	.carousel-control{
+		display:inline-block;
+		position:absolute;
+		top:50%;
+		left:50%;
+		width:18px;
+		height:32px;
+		margin-top:-16px;
+	}
+	.carousel-prev{
+		background:url("../../assets/images/left.png") no-repeat;
+		margin-left:-9px;
+	}
+	.carousel-next{
+		background:url("../../assets/images/right.png") no-repeat;
+		margin-right:-9px;
 	}
 </style>
