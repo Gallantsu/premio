@@ -1,5 +1,5 @@
 <template>
-	<div class="top-banner">
+	<div class="top-banner" >
 		<ul class="top-bg">
 			<li v-for="imgsrc in bgImgs" ><img :src="require('../../assets/images/'+imgsrc+'.jpg')"></li>
 		</ul>

@@ -40,6 +40,7 @@ export default {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    font-size:14px;
   }
   body{
     min-width: 1170px;
@@ -113,19 +114,13 @@ export default {
       display: block;
       clear: both;
   }
-  @media (min-width: 992px) {
-       .container{
-        position:relative;
-        width:970px;
-        margin:0 auto;
-      }
-  }
+
   @media (min-width: 1200px) {
-      .container{
-        position:relative;
-        width:1170px;
-        margin:0 auto;
-      }
+    .container{
+      position:relative;
+      width:1200px;
+      margin:0 auto;
+    }
       
   }
   

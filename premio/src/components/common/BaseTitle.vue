@@ -1,14 +1,14 @@
 <template>
 	<div :class="$style.heading">
-		<h4 :class="$style.title">{{title}}</h4>
-		<span :class="$style.subTitle" >{{subTitle}}</span>
+		<h4 :style="{color:titleColor}" :class="$style.title">{{title}}</h4>
+		<span  :style="{color:subTitleColor}"  :class="$style.subTitle" >{{subTitle}}</span>
 		<hr :class="$style.hr">
 	</div>
 </template>
 
 <script>
 	export default {
-		props:["title","subTitle"]
+		props:["title","subTitle","titleColor","subTitleColor"],
 	}
 </script>
 
@@ -36,7 +36,6 @@
 	}
 	.hr{
 		height: 1px;
-	    background: #fff;
 	    border: none;
 	    border-top: 1px solid #1cd1aa;
 	    border-bottom: 1px solid #1cd1aa;

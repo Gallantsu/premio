@@ -4,11 +4,6 @@
 	</p>
 </template>
 
-<script>
-	export default {
-
-	}
-</script>
 
 <style lang="scss" module >
 	.font-middle{

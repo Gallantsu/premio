@@ -3,7 +3,7 @@
  * Time:2018.10.15
  * Mail:604747817@qq.com
  */
-import 'velocity-animate'
+
 
 class Cartoon {
 	constructor(ele,options){
